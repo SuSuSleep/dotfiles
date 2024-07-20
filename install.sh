@@ -1,6 +1,6 @@
 #!/bin/bash
 
-stow k9s
-stow nvim
-stow tmux
-stow wezterm
+stow -t ~/ k9s
+stow -t ~/ nvim
+stow -t ~/ tmux
+stow -t ~/ wezterm
