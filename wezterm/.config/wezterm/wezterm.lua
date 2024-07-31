@@ -37,7 +37,7 @@ config.keys = {
 		mods = "CTRL",
 		action = action.ActivateKeyTable({
 			name = "mux_pane",
-			one_shot = false,
+			one_shot = true,
 		}),
 	},
 }
