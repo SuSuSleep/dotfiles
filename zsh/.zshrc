@@ -70,7 +70,7 @@ ZSH_THEME="jonathan"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-you-should-use timer)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-you-should-use timer kubectl)
 
 source $ZSH/oh-my-zsh.sh
 
