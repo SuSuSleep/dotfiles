@@ -24,6 +24,7 @@ require("lazy").setup({
         colorscheme = "catppuccin-mocha",
       },
     },
+    { import = "lazyvim.plugins.extras.editor.mini-diff" },
     -- import/override with your plugins
     { import = "plugins" },
   },
