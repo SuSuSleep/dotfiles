@@ -23,7 +23,7 @@ git clone --quiet -b $tag https://github.com/MichaelAquilina/zsh-you-should-use.
 
 # fzf
 tag=v0.55.0
-git clone --quiet -b $tag https://github.com/junegunn/fzf.git $$zsh_plugin_root/fzf
+git clone --quiet -b $tag https://github.com/junegunn/fzf.git $zsh_plugin_root/fzf
 $zsh_plugin_root/fzf/install --all
 
 # fasd
