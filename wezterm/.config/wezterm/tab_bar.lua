@@ -21,12 +21,12 @@ function tab_index(tab_info)
 end
 
 function module.apply_format_title(wezterm)
-	theme_color = require("mocha_theme")
+	local theme_color = require("mocha_theme")
 	wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 		local title = tab_title(tab)
 		local index = tab_index(tab)
-		index_background = theme_color.thm_blue
-		index_foreground = theme_color.thm_black
+		local index_background = theme_color.thm_blue
+		local index_foreground = theme_color.thm_black
 		if tab.is_active then
 			index_background = theme_color.thm_orange
 		end
@@ -43,6 +43,7 @@ function module.apply_format_title(wezterm)
 end
 
 function module.apply_right_status(wezterm)
+	local theme_color = require("mocha_theme")
 	wezterm.on("update-right-status", function(window, pane)
 		-- Each element holds the text for a cell in a "powerline" style << fade
 		local cells = {}
@@ -96,8 +97,6 @@ function module.apply_right_status(wezterm)
 		for _, b in ipairs(wezterm.battery_info()) do
 			table.insert(cells, string.format("%.0f%%", b.state_of_charge * 100))
 		end
-		-- Foreground color for the text across the fade
-		local text_fg = "#c0c0c0"
 
 		-- The elements to be formatted
 		local elements = {}
@@ -108,47 +107,6 @@ function module.apply_right_status(wezterm)
 		table.insert(elements, { Foreground = { Color = "#000000" } })
 		table.insert(elements, { Background = { Color = theme_color.thm_blue } })
 		table.insert(elements, { Text = " " .. wezterm.nerdfonts.fa_calendar .. " " .. date .. " " })
-
-		-- The filled in variant of the < symbol
-		-- local LEFT_HALF_CIRCLE =
-
-		-- -- Color palette for the backgrounds of each cell
-		-- theme_color = require 'mocha_theme'
-		-- local colors = {
-		--   theme_color.thm_pink,
-		--   theme_color.thm_green,
-		--   theme_color.thm_blue,
-		-- }
-
-		-- wezterm.log_info '123' .. wezterm.nerdfonts.md_calendar_clock
-		-- local icons = {
-		--   wezterm.nerdfonts.md_calendar_clock,
-		--   wezterm.nerdfonts.md_calendar_clock,
-		--   wezterm.nerdfonts.md_calendar_clock,
-		-- }
-
-		-- -- Foreground color for the text across the fade
-		-- local text_fg = '#c0c0c0'
-
-		-- -- The elements to be formatted
-		-- local elements = {}
-
-		-- table.insert(elements, {Te}
-
-		-- -- Translate a cell into elements
-		-- table.insert(elements, { Foreground = { Color = colors[1] } })
-		-- -- bar background color: '#313244'
-		-- table.insert(elements, { Background = { Color = '#313244' } })
-		-- table.insert(elements, { Text = LEFT_HALF_CIRCLE })
-		-- for i, text in ipairs(cells) do
-		--   table.insert(elements, { Foreground = { Color = text_fg } })
-		--   table.insert(elements, { Background = { Color = colors[i] } })
-		--   table.insert(elements, { Text = icons[i] .. '   ' .. text .. '   '})
-		--   if i < #cells then
-		--     table.insert(elements, { Foreground = { Color = colors[i + 1] } })
-		--     table.insert(elements, { Text = LEFT_HALF_CIRCLE })
-		--   end
-		-- end
 
 		window:set_right_status(wezterm.format(elements))
 	end)
