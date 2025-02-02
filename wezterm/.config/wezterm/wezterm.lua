@@ -1,6 +1,13 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 
+-- maximum window when start
+local mux = wezterm.mux
+wezterm.on("gui-startup", function()
+	local _, _, window = mux.spawn_window({})
+	window:gui_window():maximize()
+end)
+
 -- Define wezterm action
 local action = wezterm.action
 
@@ -17,6 +24,8 @@ end
 
 -- Font
 config.font = wezterm.font("FiraCode Nerd Font Mono")
+config.font_size = 13.5
+config.line_height = 1.1
 
 -- Changing the color scheme:
 config.color_scheme = "Catppuccin Mocha"
@@ -31,6 +40,10 @@ config.window_padding = {
 config.audible_bell = "Disabled"
 
 -- Mux
+config.inactive_pane_hsb = {
+	saturation = 0.6,
+	brightness = 0.5,
+}
 config.keys = {
 	{
 		key = "a",
