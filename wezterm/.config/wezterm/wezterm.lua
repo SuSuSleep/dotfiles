@@ -44,39 +44,27 @@ config.inactive_pane_hsb = {
 	saturation = 0.6,
 	brightness = 0.5,
 }
+config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1500 }
 config.keys = {
-	{
-		key = "a",
-		mods = "CTRL",
-		action = action.ActivateKeyTable({
-			name = "mux_pane",
-			one_shot = true,
-		}),
-	},
-}
-
-config.key_tables = {
-	mux_pane = {
-		{ key = "Escape", action = "PopKeyTable" },
-		{ key = "h", action = action.ActivatePaneDirection("Left") },
-		{ key = "j", action = action.ActivatePaneDirection("Down") },
-		{ key = "k", action = action.ActivatePaneDirection("Up") },
-		{ key = "l", action = action.ActivatePaneDirection("Right") },
-		{ key = "H", action = action.AdjustPaneSize({ "Left", 5 }) },
-		{ key = "J", action = action.AdjustPaneSize({ "Down", 5 }) },
-		{ key = "K", action = action.AdjustPaneSize({ "Up", 5 }) },
-		{ key = "L", action = action.AdjustPaneSize({ "Right", 5 }) },
-		{ key = "%", action = action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-		{ key = '"', action = action.SplitVertical({ domain = "CurrentPaneDomain" }) },
-		{ key = "x", action = action.CloseCurrentPane({ confirm = true }) },
-		{ key = "c", action = action.SpawnTab("CurrentPaneDomain") },
-		{ key = "&", action = action.CloseCurrentTab({ confirm = true }) },
-	},
+	{ key = "h", mods = "LEADER", action = action.ActivatePaneDirection("Left") },
+	{ key = "j", mods = "LEADER", action = action.ActivatePaneDirection("Down") },
+	{ key = "k", mods = "LEADER", action = action.ActivatePaneDirection("Up") },
+	{ key = "l", mods = "LEADER", action = action.ActivatePaneDirection("Right") },
+	{ key = "H", mods = "LEADER", action = action.AdjustPaneSize({ "Left", 5 }) },
+	{ key = "J", mods = "LEADER", action = action.AdjustPaneSize({ "Down", 5 }) },
+	{ key = "K", mods = "LEADER", action = action.AdjustPaneSize({ "Up", 5 }) },
+	{ key = "L", mods = "LEADER", action = action.AdjustPaneSize({ "Right", 5 }) },
+	{ key = "%", mods = "LEADER", action = action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+	{ key = '"', mods = "LEADER", action = action.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{ key = "x", mods = "LEADER", action = action.CloseCurrentPane({ confirm = true }) },
+	{ key = "c", mods = "LEADER", action = action.SpawnTab("CurrentPaneDomain") },
+	{ key = "&", mods = "LEADER", action = action.CloseCurrentTab({ confirm = true }) },
 }
 
 for i = 1, 9 do
-	table.insert(config.key_tables.mux_pane, {
+	table.insert(config.keys, {
 		key = tostring(i),
+		mods = "LEADER",
 		action = action.ActivateTab(i - 1),
 	})
 end
