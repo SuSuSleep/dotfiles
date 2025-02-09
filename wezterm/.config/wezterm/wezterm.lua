@@ -50,15 +50,15 @@ config.keys = {
 	{ key = "j", mods = "LEADER", action = action.ActivatePaneDirection("Down") },
 	{ key = "k", mods = "LEADER", action = action.ActivatePaneDirection("Up") },
 	{ key = "l", mods = "LEADER", action = action.ActivatePaneDirection("Right") },
-	{ key = "H", mods = "LEADER", action = action.AdjustPaneSize({ "Left", 5 }) },
-	{ key = "J", mods = "LEADER", action = action.AdjustPaneSize({ "Down", 5 }) },
-	{ key = "K", mods = "LEADER", action = action.AdjustPaneSize({ "Up", 5 }) },
-	{ key = "L", mods = "LEADER", action = action.AdjustPaneSize({ "Right", 5 }) },
-	{ key = "%", mods = "LEADER", action = action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-	{ key = '"', mods = "LEADER", action = action.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{ key = "H", mods = "LEADER|SHIFT", action = action.AdjustPaneSize({ "Left", 5 }) },
+	{ key = "J", mods = "LEADER|SHIFT", action = action.AdjustPaneSize({ "Down", 5 }) },
+	{ key = "K", mods = "LEADER|SHIFT", action = action.AdjustPaneSize({ "Up", 5 }) },
+	{ key = "L", mods = "LEADER|SHIFT", action = action.AdjustPaneSize({ "Right", 5 }) },
+	{ key = "%", mods = "LEADER|SHIFT", action = action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+	{ key = '"', mods = "LEADER|SHIFT", action = action.SplitVertical({ domain = "CurrentPaneDomain" }) },
 	{ key = "x", mods = "LEADER", action = action.CloseCurrentPane({ confirm = true }) },
 	{ key = "c", mods = "LEADER", action = action.SpawnTab("CurrentPaneDomain") },
-	{ key = "&", mods = "LEADER", action = action.CloseCurrentTab({ confirm = true }) },
+	{ key = "&", mods = "LEADER|SHIFT", action = action.CloseCurrentTab({ confirm = true }) },
 }
 
 for i = 1, 9 do
