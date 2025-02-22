@@ -4,15 +4,7 @@ return {
   lazy = false,
   version = false, -- set this to "*" if you want to always pull the latest change, false to update on release
   opts = {
-    provider = "ollama",
-    vendors = {
-      ollama = {
-        __inherited_from = "openai",
-        api_key_name = "",
-        endpoint = "http://192.168.50.139:11434/v1",
-        model = "llama3.1:8b",
-      },
-    },
+    provider = "copilot",
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = "make",
@@ -24,7 +16,29 @@ return {
     --- The below dependencies are optional,
     "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-    "zbirenbaum/copilot.lua", -- for providers='copilot'
+    {
+      "zbirenbaum/copilot.lua",
+      cmd = "Copilot",
+      build = ":Copilot auth",
+      event = "BufReadPost",
+      opts = {
+        suggestion = {
+          enabled = not vim.g.ai_cmp,
+          auto_trigger = true,
+          hide_during_completion = vim.g.ai_cmp,
+          keymap = {
+            accept = false, -- handled by nvim-cmp / blink.cmp
+            next = "<M-]>",
+            prev = "<M-[>",
+          },
+        },
+        panel = { enabled = false },
+        filetypes = {
+          markdown = true,
+          help = true,
+        },
+      },
+    },
     {
       -- support for image pasting
       "HakonHarnes/img-clip.nvim",
