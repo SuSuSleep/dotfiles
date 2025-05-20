@@ -24,6 +24,7 @@ require("lazy").setup({
         colorscheme = "catppuccin-mocha",
       },
     },
+    { import = "lazyvim.plugins.extras.ai.Copilot" },
     { import = "lazyvim.plugins.extras.dap.core" },
     { import = "lazyvim.plugins.extras.editor.fzf" },
     { import = "lazyvim.plugins.extras.editor.mini-diff" },
