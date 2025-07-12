@@ -1,39 +1,34 @@
 #!/bin/bash
 
-stow -t $HOME k9s
-stow -t $HOME nvim
-stow -t $HOME tmux
-stow -t $HOME wezterm
-stow -t $HOME zsh
-
-# install zsh if not present
-if ! command -v zsh &> /dev/null; then
-    echo "Installing zsh..."
-    if command -v apt &> /dev/null; then
-        sudo apt update && sudo apt install -y zsh
-    elif command -v brew &> /dev/null; then
-        brew install zsh
-    elif command -v yum &> /dev/null; then
-        sudo yum install -y zsh
-    elif command -v dnf &> /dev/null; then
-        sudo dnf install -y zsh
-    elif command -v pacman &> /dev/null; then
-        sudo pacman -S --noconfirm zsh
-    else
-        echo "Error: Could not detect package manager to install zsh"
-        exit 1
-    fi
+if ! command -v zsh &>/dev/null; then
+  echo "Installing zsh..."
+  if command -v apt &>/dev/null; then
+    sudo apt update && sudo apt install -y zsh stow
+  elif command -v brew &>/dev/null; then
+    brew install zsh stow make cmake
+  else
+    echo "Error: Could not detect package manager to install zsh"
+    exit 1
+  fi
 else
-    echo "zsh is already installed"
+  echo "zsh is already installed"
 fi
 
 # install oh-my-zsh if not present
 if [ ! -d "$HOME/.oh-my-zsh" ] || [ -z "$(ls -A $HOME/.oh-my-zsh)" ]; then
-    echo "Installing oh-my-zsh..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  echo "Installing oh-my-zsh..."
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 else
-    echo "oh-my-zsh is already installed"
+  echo "oh-my-zsh is already installed"
 fi
+
+stow -t $HOME k9s
+stow -t $HOME nvim
+stow -t $HOME tmux
+stow -t $HOME wezterm
+# Overlap it
+rm ~/.zshrc
+stow -t $HOME zsh
 
 # install zsh plugin
 zsh_plugin_root="$HOME/.oh-my-zsh/custom/plugins"
@@ -60,3 +55,16 @@ tag=1.0.1
 git clone --quiet -b $tag https://github.com/clvv/fasd.git $zsh_plugin_root/fasd
 cd $zsh_plugin_root/fasd
 PREFIX=$HOME make install
+
+# reload zshrc
+source ~/.zshrc
+
+mkdir -p ~/.local/bin
+# install nvim
+wget https://github.com/neovim/neovim/releases/download/v0.11.2/nvim-linux-x86_64.appimage
+chmod u+x nvim-linux-x86_64.appimage
+mv nvim-linux-x86_64.appimage ~/.local/bin/nvim
+# install lazygit
+wget https://github.com/jesseduffield/lazygit/releases/download/v0.53.0/lazygit_0.53.0_Linux_x86_64.tar.gz
+tar zxvf lazygit_0.53.0_Linux_x86_64.tar.gz lazygit
+mv lazygit ~/.local/bin/lazygit
