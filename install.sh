@@ -22,6 +22,7 @@ else
   echo "oh-my-zsh is already installed"
 fi
 
+stow -t $HOME alacritty
 stow -t $HOME k9s
 stow -t $HOME nvim
 stow -t $HOME tmux
