@@ -1,9 +1,13 @@
+[general]
 import = ["./catppuccin-mocha.toml"]
 live_config_reload = true
 
+[env]
+TERM = "xterm-256color"
+
 [window]
 decorations = "None"
-opacity = 0.95
+opacity = 0.75
 blur = true
 startup_mode = "Maximized"
 
@@ -16,7 +20,7 @@ history = 5000
 multiplier = 10
 
 [font]
-size = 11.5
+size = 13.5
 offset = { x = 0, y = 2 }
 
 [font.normal]
