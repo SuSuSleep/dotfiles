@@ -81,11 +81,11 @@ Identify any issues related to:
 Your feedback must be concise, directly addressing each identified issue with:
 - A clear description of the problem.
 - A concrete suggestion for how to improve or correct the issue.
-  
+
 Format your feedback as follows:
 - Explain the high-level issue or problem briefly.
 - Provide a specific suggestion for improvement.
- 
+
 If the code snippet has no readability issues, simply confirm that the code is clear and well-written as is.
 ]]
 )
@@ -171,7 +171,7 @@ return {
     display = {
       chat = {
         -- Change to true to show the current model
-        show_settings = true,
+        show_settings = false,
         window = {
           layout = "vertical", -- float|vertical|horizontal|buffer
         },
