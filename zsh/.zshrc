@@ -103,13 +103,47 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# NVM
+# NVM — choose paths by OS (macOS / Linux)
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+case "$(uname -s)" in
+    Darwin)
+        # Homebrew (Apple Silicon) or Intel, then fallback to ~/.nvm
+        if [ -s "/opt/homebrew/opt/nvm/nvm.sh" ]; then
+            . "/opt/homebrew/opt/nvm/nvm.sh"
+        elif [ -s "/usr/local/opt/nvm/nvm.sh" ]; then
+            . "/usr/local/opt/nvm/nvm.sh"
+        elif [ -s "$NVM_DIR/nvm.sh" ]; then
+            . "$NVM_DIR/nvm.sh"
+        fi
+
+        if [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ]; then
+            . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+        elif [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ]; then
+            . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+        elif [ -s "$NVM_DIR/bash_completion" ]; then
+            . "$NVM_DIR/bash_completion"
+        fi
+        ;;
+    Linux)
+        # Typical Linux/Ubuntu nvm install
+        if [ -s "$NVM_DIR/nvm.sh" ]; then
+            . "$NVM_DIR/nvm.sh"
+        fi
+        if [ -s "$NVM_DIR/bash_completion" ]; then
+            . "$NVM_DIR/bash_completion"
+        fi
+        ;;
+    *)
+        # Fallback: try common locations
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+        [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+        ;;
+esac
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # fasd
 eval "$(fasd --init auto)"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
