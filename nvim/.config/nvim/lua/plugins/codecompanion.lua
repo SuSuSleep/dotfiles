@@ -503,6 +503,35 @@ return {
           },
         },
       },
+      ["ask with code"] = {
+        strategy = "chat",
+        description = "Ask AI about selected code (New Prompt)",
+        opts = {
+          modes = { "v" },
+          short_name = "askcode",
+          auto_submit = false,
+          user_prompt = false,
+          stop_context_insertion = true,
+        },
+        prompts = {
+          {
+            role = "user",
+            -- The content function is what pre-populates the prompt.
+            -- context.selection holds the text you visually selected.
+            content = function(context)
+              -- If you selected text, use it. Otherwise, use the full buffer.
+              local code = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
+
+              -- The initial message is a template with the code inserted
+              return string.format(
+                "I have the following code:\n\n```%s\n%s\n```\n\nMy question is: ",
+                context.filetype,
+                code
+              )
+            end,
+          },
+        },
+      },
     },
   },
   config = function(_, options)
@@ -596,6 +625,12 @@ return {
       mapping_key_prefix .. "n",
       "<cmd>CodeCompanion /naming<cr>",
       desc = "Code Companion - Better naming",
+      mode = "v",
+    },
+    {
+      mapping_key_prefix .. "a",
+      "<cmd>CodeCompanion /askcode<cr>",
+      desc = "Code Companion - Ask with code",
       mode = "v",
     },
     -- Quick chat
