@@ -7,6 +7,7 @@ return {
       ["json"] = { "biome" },
       ["javascript"] = { "biome" },
       ["typescript"] = { "biome" },
+      ["vue"] = { "biome" },
       ["bash"] = { "beautysh" },
       ["yaml"] = { "yamlfmt" },
     },
