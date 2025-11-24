@@ -503,7 +503,35 @@ return {
           },
         },
       },
-      ["ask with code"] = {
+      ["Inline coding"] = {
+        strategy = "chat",
+        description = "Finish requiremnets based on comment.",
+        opts = {
+          modes = { "v" },
+          short_name = "Finish",
+          auto_submit = true,
+          user_prompt = false,
+          stop_context_insertion = true,
+        },
+        prompts = {
+          {
+            role = "user",
+            content = function(context)
+              local code = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
+
+              return "Please update the selected code for achieving requirements from comments:\n\n```"
+                .. context.filetype
+                .. "\n"
+                .. code
+                .. "\n```\n\n"
+            end,
+            opts = {
+              contains_code = true,
+            },
+          },
+        },
+      },
+      ["Ask with Code"] = {
         strategy = "chat",
         description = "Ask AI about selected code (New Prompt)",
         opts = {
@@ -516,19 +544,18 @@ return {
         prompts = {
           {
             role = "user",
-            -- The content function is what pre-populates the prompt.
-            -- context.selection holds the text you visually selected.
             content = function(context)
-              -- If you selected text, use it. Otherwise, use the full buffer.
               local code = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
 
-              -- The initial message is a template with the code inserted
               return string.format(
                 "I have the following code:\n\n```%s\n%s\n```\n\nMy question is: ",
                 context.filetype,
                 code
               )
             end,
+            opts = {
+              contains_code = true,
+            },
           },
         },
       },
@@ -577,6 +604,12 @@ return {
       mapping_key_prefix .. "f",
       "<cmd>CodeCompanion /fix<cr>",
       desc = "Code Companion - Fix code",
+      mode = "v",
+    },
+    {
+      mapping_key_prefix .. "F",
+      "<cmd>CodeCompanion /Finish<cr>",
+      desc = "Code Companion - Finish code",
       mode = "v",
     },
     {
