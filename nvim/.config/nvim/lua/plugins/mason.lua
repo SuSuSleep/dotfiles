@@ -14,6 +14,8 @@ return {
         "yamlfmt",
         -- javascript
         "biome",
+        -- j2
+        "djlint",
       },
     },
   },

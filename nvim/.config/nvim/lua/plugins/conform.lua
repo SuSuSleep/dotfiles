@@ -10,6 +10,7 @@ return {
       ["vue"] = { "biome" },
       ["bash"] = { "beautysh" },
       ["yaml"] = { "yamlfmt" },
+      ["j2"] = { "djlint" },
     },
   },
 }
