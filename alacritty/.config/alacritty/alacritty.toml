@@ -6,8 +6,8 @@ live_config_reload = true
 TERM = "xterm-256color"
 
 [window]
-decorations = "None"
-opacity = 0.75
+decorations = "Full"
+opacity = 0.95
 blur = true
 startup_mode = "Maximized"
 
