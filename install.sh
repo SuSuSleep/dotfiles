@@ -38,7 +38,9 @@ zsh_plugin_root="$HOME/.oh-my-zsh/custom/plugins"
 tag=v0.7.0
 git clone --quiet -b $tag https://github.com/zsh-users/zsh-autosuggestions.git $zsh_plugin_root/zsh-autosuggestions
 
-# zsh-syntax-highlighting
+# catppuccin color
+git clone https://github.com/catppuccin/zsh-syntax-highlighting.git $zsh_plugin_root/catppuccin-zsh-syntaxx-highlighting
+
 tag=0.8.0
 git clone --quiet -b $tag https://github.com/zsh-users/zsh-syntax-highlighting.git $zsh_plugin_root/zsh-syntax-highlighting
 
