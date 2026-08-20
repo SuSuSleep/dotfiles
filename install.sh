@@ -1,5 +1,58 @@
 #!/bin/bash
 
+install_neovim_image_dependencies() {
+  local packages=()
+  local package_manager=""
+
+  if command -v apt &>/dev/null; then
+    package_manager="apt"
+    if ! command -v magick &>/dev/null && ! command -v convert &>/dev/null; then
+      packages+=(imagemagick)
+    fi
+    if ! command -v tectonic &>/dev/null && ! command -v pdflatex &>/dev/null; then
+      packages+=(texlive-latex-extra)
+    fi
+    if ! command -v npm &>/dev/null; then
+      packages+=(nodejs npm)
+    fi
+  elif command -v brew &>/dev/null; then
+    package_manager="brew"
+    if ! command -v magick &>/dev/null && ! command -v convert &>/dev/null; then
+      packages+=(imagemagick)
+    fi
+    if ! command -v tectonic &>/dev/null && ! command -v pdflatex &>/dev/null; then
+      packages+=(tectonic)
+    fi
+    if ! command -v npm &>/dev/null; then
+      packages+=(node)
+    fi
+  else
+    echo "Warning: Could not detect a package manager; skipping Neovim image dependencies"
+    return
+  fi
+
+  if [ ${#packages[@]} -gt 0 ]; then
+    echo "Installing Neovim image-rendering dependencies..."
+    if [ "$package_manager" = "apt" ]; then
+      sudo apt update && sudo apt install -y "${packages[@]}"
+    else
+      brew install "${packages[@]}"
+    fi
+  fi
+
+  if ! command -v mmdc &>/dev/null; then
+    echo "Installing Mermaid CLI..."
+    if command -v npm &>/dev/null; then
+      npm install -g @mermaid-js/mermaid-cli
+    else
+      echo "Error: npm is required to install Mermaid CLI"
+      return 1
+    fi
+  fi
+}
+
+install_neovim_image_dependencies
+
 if ! command -v zsh &>/dev/null; then
   echo "Installing zsh..."
   if command -v apt &>/dev/null; then
