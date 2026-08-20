@@ -24,6 +24,7 @@ fi
 
 stow -t $HOME alacritty
 stow -t $HOME k9s
+stow -t $HOME kitty
 stow -t $HOME nvim
 stow -t $HOME tmux
 stow -t $HOME wezterm
